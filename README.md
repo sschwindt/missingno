@@ -1,5 +1,25 @@
 # missingno [![PyPi version](https://img.shields.io/pypi/v/missingno.svg)](https://pypi.python.org/pypi/missingno/) [![](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/) ![t](https://img.shields.io/badge/status-maintained-yellow.svg) [![](https://img.shields.io/github/license/ResidentMario/missingno.svg)](https://github.com/ResidentMario/missingno/blob/master/LICENSE.md) [![](https://img.shields.io/badge/doi-10.21105/joss.00547+-blue.svg)](https://joss.theoj.org/papers/10.21105/joss.00547)
 
+## Fork comments
+
+This fork directly pipes into the original repo's `missingo/missingo` directory where the package lives. The initial main reason for creating this fork was to enable more options for the correlation heatmap by adding the `corr_method` optinal argument in the `missingno.heatmap` function. This modification allows for the following additional usage (modified line from the below original README):
+
+```python
+msno.heatmap(collisions, corr_method='spearman', numeric_only=False)
+```
+
+Valid `corr_methods` are imposed by the implementation in [pandas.DataFrame.corr](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html) and include by the time of writing these lines:
+
+* `pearson` - linear correlation coefficient
+* `kendall` - Kendall Tau correlation coefficient
+* `spearman` - Spearman rank correlation
+* `*callable` - callable function with input two 1d ndarrays, which returns a float
+
+
+***
+
+## ORIGINAL README
+
 Messy datasets? Missing values? `missingno` provides a small toolset of flexible and easy-to-use missing data
 visualizations and utilities that allows you to get a quick visual summary of the completeness (or lack thereof) of your dataset. Just `pip install missingno` to get started.
 

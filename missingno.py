@@ -334,7 +334,8 @@ def bar(
 
 def heatmap(
     df, filter=None, n=0, p=0, sort=None, figsize=(20, 12), fontsize=16, labels=True,
-    label_rotation=45, cmap='RdBu', vmin=-1, vmax=1, cbar=True, ax=None
+    label_rotation=45, cmap='RdBu', vmin=-1, vmax=1, cbar=True, ax=None,
+    corr_method='pearson'
 ):
     """
     Presents a `seaborn` heatmap visualization of nullity correlation in the given DataFrame.
@@ -356,6 +357,8 @@ def heatmap(
     :param cmap: What `matplotlib` colormap to use. Defaults to `RdBu`.
     :param vmin: The normalized colormap threshold. Defaults to -1, e.g. the bottom of the color scale.
     :param vmax: The normalized colormap threshold. Defaults to 1, e.g. the bottom of the color scale.
+    :param corr_method: A correlation method implemented in
+        https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.corr.html
     :return: The plot axis.
     """
     # Apply filters and sorts, set up the figure.
@@ -372,7 +375,7 @@ def heatmap(
     df = df.iloc[:, [i for i, n in enumerate(np.var(df.isnull(), axis='rows')) if n > 0]]
 
     # Create and mask the correlation matrix. Construct the base heatmap.
-    corr_mat = df.isnull().corr()
+    corr_mat = df.isnull().corr(method=corr_method)
     mask = np.zeros_like(corr_mat)
     mask[np.triu_indices_from(mask)] = True
 
